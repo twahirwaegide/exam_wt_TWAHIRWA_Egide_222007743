@@ -21,15 +21,18 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px; /* Adjust the width as needed */
         }
 
         h2 {
             margin-bottom: 20px;
+            text-align: center;
         }
 
         label {
             display: block;
-            margin: 10px 0 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
         input, select {
@@ -48,6 +51,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -57,11 +62,26 @@
         #error {
             margin-top: 10px;
             color: red;
+            text-align: center;
         }
 
         #success {
             margin-top: 10px;
             color: green;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -70,44 +90,7 @@
         <h2>User Registration</h2>
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $servername = "localhost";
-            $username = "root"; // Replace with your database username
-            $password = ""; // Replace with your database password
-            $dbname = "virtual_personal_finance_management_workshops_platform";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("<div id='error'>Connection failed: " . $conn->connect_error . "</div>");
-            }
-
-            $user_name = $_POST['username'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $first_name = $_POST['firstName'];
-            $last_name = $_POST['lastName'];
-            $role = $_POST['role'];
-
-            // Validate input
-            if (!empty($user_name) && !empty($email) && !empty($password) && !empty($first_name) && !empty($last_name) && !empty($role)) {
-                // Prepare and bind
-                $stmt = $conn->prepare("INSERT INTO users (`user name`, `email`, `password`, `first name`, `last name`, `role`) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $user_name, $email, $password, $first_name, $last_name, $role);
-
-                if ($stmt->execute()) {
-                    echo "<div id='success'>Registration successful!</div>";
-                } else {
-                    echo "<div id='error'>Error: " . $stmt->error . "</div>";
-                }
-
-                $stmt->close();
-            } else {
-                echo "<div id='error'>All fields are required.</div>";
-            }
-
-            $conn->close();
+            // Your PHP code for handling form submission
         }
         ?>
         <form id="registrationForm" action="" method="POST">
@@ -138,6 +121,9 @@
         </form>
         <div id="error"></div>
         <div id="success"></div>
+
+        <!-- Link to login page -->
+        <p>Already have an account? <a href="login.html">Login</a></p>
     </div>
 </body>
 </html>
